@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Lista de Tarefas</title>
+</h:head>
+<h:body>
+    <h2>Lista de Tarefas</h2>
+    <rich:dataTable value="#{tarefaController.tarefas}" var="tarefa">
+        <rich:column>
+            <f:facet name="header">ID</f:facet>
+            #{tarefa.id}
+        </rich:column>
+        <rich:column>
+            <f:facet name="header">Título</f:facet>
+            #{tarefa.titulo}
+        </rich:column>
+        <rich:column>
+            <f:facet name="header">Descrição</f:facet>
+            #{tarefa.descricao}
+        </rich:column>
+        <rich:column>
+            <f:facet name="header">Prioridade</f:facet>
+            #{tarefa.prioridade}
+        </rich:column>
+        <rich:column>
+            <f:facet name="header">Estimativa em Horas</f:facet>
+            #{tarefa.estimativaHoras}
+        </rich:column>
+        <rich:column>
+            <h:commandLink value="Editar" action="#{tarefaController.editarTarefa(tarefa)}" />
+            <h:commandLink value="Excluir" action="#{tarefaController.excluirTarefa(tarefa)}" />
+        </rich:column>
+    </rich:dataTable>
+</h:body>
+</html>
