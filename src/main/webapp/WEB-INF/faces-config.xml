@@ -7,4 +7,68 @@
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
     </application>
+
+    <navigation-rule>
+        <from-view-id>/pages/listarProjetos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editarProjeto</from-outcome>
+            <to-view-id>/pages/editarProjeto.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cadastroProjeto</from-outcome>
+            <to-view-id>/pages/cadastroProjeto.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>visualizarTarefas</from-outcome>
+            <to-view-id>/pages/visualizarTarefas.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/visualizarTarefas.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editarTarefa</from-outcome>
+            <to-view-id>/pages/editarTarefa.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cadastroTarefa</from-outcome>
+            <to-view-id>/pages/cadastroTarefa.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listarTarefas</from-outcome>
+            <to-view-id>/pages/visualizarTarefas.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/editarProjeto.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>listarProjetos</from-outcome>
+            <to-view-id>/pages/listarProjetos.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/cadastroProjeto.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>listarProjetos</from-outcome>
+            <to-view-id>/pages/listarProjetos.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/editarTarefa.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>listarTarefas</from-outcome>
+            <to-view-id>/pages/visualizarTarefas.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/cadastroTarefa.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>listarTarefas</from-outcome>
+            <to-view-id>/pages/visualizarTarefas.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

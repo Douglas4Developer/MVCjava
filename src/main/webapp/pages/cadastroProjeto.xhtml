@@ -6,15 +6,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-    <title>Editar Projeto</title>
+    <title>Cadastro de Projeto</title>
 </h:head>
 <h:body>
     <h:form>
-        <h2>Editar Projeto</h2>
+        <h:messages globalOnly="true" />
+        <h2>Cadastro de Novo Projeto</h2>
         <rich:panel>
-
-        <h:panelGrid columns="2">
-
+            <h:panelGrid columns="2">
                 <h:outputLabel for="titulo" value="Título:" />
                 <h:inputText id="titulo" value="#{projetoController.projetoSelecionado.titulo}" required="true" />
 
@@ -22,14 +21,13 @@
                 <h:inputText id="descricao" value="#{projetoController.projetoSelecionado.descricao}" required="true" />
 
                 <h:outputLabel for="dataInicio" value="Data de Início:" />
-                <h:inputText id="dataInicio" value="#{projetoController.projetoSelecionado.dataInicio}">
-                    <f:convertDateTime pattern="yyyy-MM-dd" />
-                </h:inputText>
+                <rich:calendar id="dataInicio" value="#{projetoController.projetoSelecionado.dataInicio}" datePattern="yyyy-MM-dd" required="true" />
 
-                <h:commandButton value="Salvar" action="#{projetoController.atualizarProjeto}" />
+                <h:commandButton value="Salvar" action="#{projetoController.salvarNovoProjeto}" />
                 <h:commandButton value="Cancelar" action="#{projetoController.cancelarEdicao}" immediate="true" />
-        </h:panelGrid >
+            </h:panelGrid>
         </rich:panel>
     </h:form>
+
 </h:body>
 </html>

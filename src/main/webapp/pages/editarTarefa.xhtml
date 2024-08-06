@@ -10,7 +10,7 @@
 </h:head>
 <h:body>
     <h:form>
-        <h2>Editar Tarefa</h2>
+        <h2>Editar Tarefa para Projeto: #{projetoController.projetoSelecionado.titulo}</h2>
         <h:panelGrid columns="2">
             <h:outputLabel for="titulo" value="Título:" />
             <h:inputText id="titulo" value="#{tarefaController.tarefaSelecionada.titulo}" required="true" />
@@ -29,7 +29,7 @@
             <h:outputLabel for="estimativaHoras" value="Estimativa em Horas:" />
             <h:inputText id="estimativaHoras" value="#{tarefaController.tarefaSelecionada.estimativaHoras}" required="true" />
 
-            <h:commandButton value="Salvar" action="#{tarefaController.salvarTarefa}" />
+            <h:commandButton value="Salvar" action="#{tarefaController.atualizarTarefa}" />
             <h:commandButton value="Cancelar" action="#{tarefaController.cancelarEdicao}" immediate="true" />
         </h:panelGrid>
     </h:form>

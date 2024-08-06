@@ -17,12 +17,22 @@ public class ProjetoDao {
     }
 
     public int save(Projeto projeto) {
-        String sql = "INSERT INTO projetos(titulo, descricao, data_inicio) VALUES(?, ?, ?)";
+        String sql = "INSERT INTO projeto (titulo, descricao, data_inicio) VALUES (?, ?, ?)";
         return template.update(sql, projeto.getTitulo(), projeto.getDescricao(), projeto.getDataInicio());
     }
 
     public List<Projeto> getProjetos() {
         String sql = "SELECT * FROM projeto";
         return template.query(sql, new BeanPropertyRowMapper<>(Projeto.class));
+    }
+
+    public int update(Projeto projeto) {
+        String sql = "UPDATE projeto SET titulo = ?, descricao = ?, data_inicio = ? WHERE id = ?";
+        return template.update(sql, projeto.getTitulo(), projeto.getDescricao(), projeto.getDataInicio(), projeto.getId());
+    }
+
+    public int delete(int id) {
+        String sql = "DELETE FROM projeto WHERE id = ?";
+        return template.update(sql, id);
     }
 }
