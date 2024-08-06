@@ -4,38 +4,41 @@ import com.doug.mvcjava.beans.Projeto;
 import com.doug.mvcjava.dao.ProjetoDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.annotation.SessionScope;
-import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @SessionScope
 public class ProjetoController {
 
     private final ProjetoDao projetoDao;
+    private Projeto projetoSelecionado;
 
     @Autowired
     public ProjetoController(ProjetoDao projetoDao) {
         this.projetoDao = projetoDao;
     }
 
-    @RequestMapping("/projetoform")
-    public String showform(Model m) {
-        m.addAttribute("command", new Projeto());
-        return "projetoForm";
+    public List<Projeto> getProjetos() {
+        return projetoDao.getProjetos();
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView save(@ModelAttribute("projeto") Projeto projeto) {
-        projetoDao.save(projeto);
-        return new ModelAndView("redirect:/viewprojetos");
+    public Projeto getProjetoSelecionado() {
+        return projetoSelecionado;
     }
 
-    @RequestMapping("/viewprojetos")
-    public ModelAndView viewprojetos() {
-        return new ModelAndView("projetoList", "list", projetoDao.getProjetos());
+    public void setProjetoSelecionado(Projeto projetoSelecionado) {
+        this.projetoSelecionado = projetoSelecionado;
+    }
+
+    public String salvarProjeto() {
+        projetoDao.save(projetoSelecionado);
+        return "listarProjetos"; // Nome da página para redirecionar
+    }
+
+    public String cancelarEdicao() {
+        projetoSelecionado = null;
+        return "listarProjetos"; // Nome da página para redirecionar
     }
 }
