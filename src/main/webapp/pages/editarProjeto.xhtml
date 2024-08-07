@@ -5,31 +5,31 @@
       xmlns:rich="http://richfaces.org/rich"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<h:head>
-    <title>Editar Projeto</title>
-</h:head>
-<h:body>
-    <h:form>
-        <h2>Editar Projeto</h2>
-        <rich:panel>
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+    <ui:define name="title">
+        Editar Projeto
+    </ui:define>
 
-        <h:panelGrid columns="2">
+    <ui:define name="content">
+        <h:form>
+            <h2>Editar Projeto</h2>
+            <rich:panel>
+                <h:panelGrid columns="2" styleClass="form-grid">
+                    <h:outputLabel for="titulo" value="Título:" />
+                    <h:inputText id="titulo" value="#{projetoController.projetoSelecionado.titulo}" required="true" />
 
-                <h:outputLabel for="titulo" value="Título:" />
-                <h:inputText id="titulo" value="#{projetoController.projetoSelecionado.titulo}" required="true" />
+                    <h:outputLabel for="descricao" value="Descrição:" />
+                    <h:inputText id="descricao" value="#{projetoController.projetoSelecionado.descricao}" required="true" />
 
-                <h:outputLabel for="descricao" value="Descrição:" />
-                <h:inputText id="descricao" value="#{projetoController.projetoSelecionado.descricao}" required="true" />
-
-                <h:outputLabel for="dataInicio" value="Data de Início:" />
-                <h:inputText id="dataInicio" value="#{projetoController.projetoSelecionado.dataInicio}">
-                    <f:convertDateTime pattern="yyyy-MM-dd" />
-                </h:inputText>
-
+                    <h:outputLabel for="dataInicio" value="Data de Início:" />
+                    <h:inputText id="dataInicio" value="#{projetoController.projetoSelecionado.dataInicio}">
+                        <f:convertDateTime pattern="yyyy-MM-dd" />
+                    </h:inputText>
+                </h:panelGrid>
                 <h:commandButton value="Salvar" action="#{projetoController.atualizarProjeto}" />
                 <h:commandButton value="Cancelar" action="#{projetoController.cancelarEdicao}" immediate="true" />
-        </h:panelGrid >
-        </rich:panel>
-    </h:form>
-</h:body>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
 </html>
