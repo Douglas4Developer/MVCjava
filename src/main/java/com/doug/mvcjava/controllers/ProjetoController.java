@@ -21,6 +21,9 @@ public class ProjetoController {
     private Projeto projetoSelecionado;
 
     @Autowired
+    private TarefaController tarefaController; // Injetando o TarefaController
+
+    @Autowired
     public ProjetoController(ProjetoDao projetoDao, TarefaDao tarefaDao) {
         this.projetoDao = projetoDao;
         this.tarefaDao = tarefaDao;
@@ -47,7 +50,6 @@ public class ProjetoController {
         return "listarProjetos"; // Atualiza a lista de projetos
     }
 
-
     public String atualizarProjeto() {
         projetoDao.update(projetoSelecionado);
         return "listarProjetos"; // Volta para a lista após a atualização
@@ -67,6 +69,7 @@ public class ProjetoController {
 
     public String visualizarTarefas(Projeto projeto) {
         this.projetoSelecionado = projeto;
+        tarefaController.setProjetoSelecionado(projeto); // Define o projeto selecionado no TarefaController
         return "listarTarefas?faces-redirect=true";
     }
 
@@ -79,4 +82,11 @@ public class ProjetoController {
         projetoDao.save(projetoSelecionado);
         return "listarProjetos?faces-redirect=true";
     }
+
+
+    public String listarProjetos() {
+        return "listarProjetos"; // Certifique-se de que isso corresponde ao 'from-outcome' no 'faces-config.xml'
+    }
+
+
 }

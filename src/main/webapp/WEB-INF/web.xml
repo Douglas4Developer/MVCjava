@@ -37,7 +37,7 @@
     </session-config>
 
     <welcome-file-list>
-        <welcome-file>pages/listarProjetos.xhtml</welcome-file>
+        <welcome-file>pages/bemVindo.xhtml</welcome-file>
     </welcome-file-list>
 
 </web-app>

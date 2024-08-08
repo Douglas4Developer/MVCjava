@@ -17,23 +17,25 @@ public class TarefaController {
 
     private final TarefaDao tarefaDao;
     private Tarefa tarefaSelecionada;
-    private Projeto projetoSelecionado; // Adiciona uma referência ao projeto
+    private Projeto projetoSelecionado;
 
     @Autowired
     public TarefaController(TarefaDao tarefaDao) {
         this.tarefaDao = tarefaDao;
     }
 
-    // Método agora aceita um argumento
-    public List<Tarefa> tarefasPorProjeto(Integer projetoId) {
-        if (projetoId != null) {
-            return tarefaDao.getTarefasPorProjeto(projetoId);
+    public List<Tarefa> getTarefasPorProjeto() {
+        if (projetoSelecionado != null) {
+            return tarefaDao.getTarefasPorProjeto(projetoSelecionado.getId());
         }
         return null;
     }
 
     public String editarTarefa(Tarefa tarefa) {
         this.tarefaSelecionada = tarefa;
+        if (tarefa.getProjeto() == null && projetoSelecionado != null) {
+            tarefaSelecionada.setProjeto(projetoSelecionado);
+        }
         return "editarTarefa"; // Navegação para a página de edição
     }
 
@@ -43,27 +45,40 @@ public class TarefaController {
     }
 
     public String atualizarTarefa() {
-        tarefaDao.update(tarefaSelecionada);
-        return "listarTarefas"; // Volta para a lista após a atualização
-    }
-
-    public String novaTarefa() {
-        this.tarefaSelecionada = new Tarefa();
-        this.tarefaSelecionada.setProjeto(projetoSelecionado); // Associa ao projeto atual
-        return "cadastroTarefa"; // Navegação para a página de cadastro de tarefa
-    }
-
-    public String salvarTarefa() {
-        if (tarefaSelecionada != null) {
-            tarefaDao.save(tarefaSelecionada);
-            return "listarTarefas"; // Volta para a lista após salvar
+        if (tarefaSelecionada != null && tarefaSelecionada.getProjeto() != null) {
+            tarefaDao.update(tarefaSelecionada);
+            return "listarTarefas"; // Volta para a lista após a atualização
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Tarefa não inicializada."));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Tarefa ou projeto não inicializados."));
             return null; // Permanecer na mesma página
         }
     }
 
-    // Getter e Setter para tarefaSelecionada
+
+    public String cancelarEdicao() {
+        return "listarTarefas"; // Retorna para a lista sem salvar
+    }
+
+    public String novaTarefa() {
+        this.tarefaSelecionada = new Tarefa();
+        if (projetoSelecionado != null) {
+            this.tarefaSelecionada.setProjeto(projetoSelecionado); // Associa ao projeto atual
+        }
+        return "cadastroTarefa"; // Navegação para a página de cadastro de tarefa
+    }
+
+
+    public String salvarTarefa() {
+        if (tarefaSelecionada != null && tarefaSelecionada.getProjeto() != null) {
+            tarefaDao.save(tarefaSelecionada);
+            return "listarTarefas"; // Volta para a lista após salvar
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Projeto ou Tarefa não inicializados."));
+            return null; // Permanecer na mesma página
+        }
+    }
+
+    // Getter e Setter para tarefaSelecionada e projetoSelecionado
     public Tarefa getTarefaSelecionada() {
         return tarefaSelecionada;
     }
@@ -72,7 +87,11 @@ public class TarefaController {
         this.tarefaSelecionada = tarefaSelecionada;
     }
 
-    public void setProjetoSelecionado(Projeto projeto) {
-        this.projetoSelecionado = projeto;
+    public Projeto getProjetoSelecionado() {
+        return projetoSelecionado;
+    }
+
+    public void setProjetoSelecionado(Projeto projetoSelecionado) {
+        this.projetoSelecionado = projetoSelecionado;
     }
 }

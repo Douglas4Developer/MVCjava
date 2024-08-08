@@ -5,53 +5,54 @@
       xmlns:rich="http://richfaces.org/rich"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<h:head>
-    <title>Lista de Projetos</title>
-</h:head>
-<h:body>
-    <h:form>
-        <!-- Adicione isso para mostrar todas as mensagens -->
-        <h:messages globalOnly="true" layout="table" />
+<ui:composition template="/WEB-INF/templates/template.xhtml">
+    <ui:define name="title">
+        Lista de Projetos
+    </ui:define>
 
-        <h2>Lista de Projetos</h2>
-        <rich:dataTable value="#{projetoController.projetos}" var="projeto">
-            <rich:column>
-                <f:facet name="header">ID</f:facet>
-                #{projeto.id}
-            </rich:column>
-            <rich:column>
-                <f:facet name="header">Título</f:facet>
-                #{projeto.titulo}
-            </rich:column>
-            <rich:column>
-                <f:facet name="header">Descrição</f:facet>
-                #{projeto.descricao}
-            </rich:column>
-            <rich:column>
-                <f:facet name="header">Data de Início</f:facet>
-                <h:outputText value="#{projeto.dataInicio}">
-                    <f:convertDateTime pattern="yyyy-MM-dd" />
-                </h:outputText>
-            </rich:column>
-            <rich:column>
-                <f:facet name="header">Ações</f:facet>
-                <h:commandLink value="Editar" action="#{projetoController.editarProjeto(projeto)}">
-                    <f:param name="projetoId" value="#{projeto.id}" />
-                </h:commandLink>
-                <h:commandLink value="Excluir" action="#{projetoController.excluirProjeto(projeto)}" style="margin-left:10px;">
-                    <f:param name="projetoId" value="#{projeto.id}" />
-                </h:commandLink>
-                <h:commandLink value="Visualizar Tarefas" action="#{projetoController.visualizarTarefas(projeto)}" style="margin-left:10px;">
-                    <f:param name="projetoId" value="#{projeto.id}" />
-                </h:commandLink>
-            </rich:column>
-        </rich:dataTable>
-    </h:form>
+    <ui:define name="content">
+        <h:form>
+            <h:messages globalOnly="true" layout="table" />
+            <h2>Lista de Projetos</h2>
+            <rich:dataTable value="#{projetoController.projetos}" var="projeto">
+                <rich:column>
+                    <f:facet name="header">ID</f:facet>
+                    #{projeto.id}
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">Título</f:facet>
+                    #{projeto.titulo}
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">Descrição</f:facet>
+                    #{projeto.descricao}
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">Data de Início</f:facet>
+                    <h:outputText value="#{projeto.dataInicio}">
+                        <f:convertDateTime pattern="yyyy-MM-dd" />
+                    </h:outputText>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">Ações</f:facet>
+                    <h:commandLink value="Editar" action="#{projetoController.editarProjeto(projeto)}">
+                        <f:param name="projetoId" value="#{projeto.id}" />
+                    </h:commandLink>
+                    <h:commandLink value="Excluir" action="#{projetoController.excluirProjeto(projeto)}" style="margin-left:10px;">
+                        <f:param name="projetoId" value="#{projeto.id}" />
+                    </h:commandLink>
+                    <h:commandLink value="Visualizar Tarefas" action="#{projetoController.visualizarTarefas(projeto)}" style="margin-left:10px;">
+                        <f:param name="projetoId" value="#{projeto.id}" />
+                    </h:commandLink>
+                </rich:column>
+            </rich:dataTable>
+        </h:form>
 
-    <br/>
+        <br/>
 
-    <h:form>
-        <h:commandButton value="Adicionar Novo Projeto" action="#{projetoController.novoProjeto}" />
-    </h:form>
-</h:body>
+        <h:form>
+            <h:commandButton value="Adicionar Novo Projeto" action="#{projetoController.novoProjeto}" />
+        </h:form>
+    </ui:define>
+</ui:composition>
 </html>
